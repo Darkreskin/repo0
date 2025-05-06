@@ -1,1 +1,9 @@
-192.168.100.147
+all:
+  hosts:
+    192.168.100.7:
+      ansible_user: server1
+      ansible_ssh_common_args: "-oHostKeyAlgorithms=+ssh-ed25519 -oPubkeyAcceptedAlgorithms=+ssh-ed25519"
+    192.168.100.227:
+      ansible_user: server02
+      ansible_ssh_common_args: "-oHostKeyAlgorithms=+ssh-ed25519 -oPubkeyAcceptedAlgorithms=+ssh-ed25519"
+

@@ -1,0 +1,25 @@
+---
+- hosts: all
+  become: true
+  tasks:
+    - name: Install Apache and PHP for Ubuntu servers
+      apt:
+        name:
+          - apache2
+          - libapache2-mod-php
+        state: latest
+        update_cache: yes
+      when: ansible_distribution == "Ubuntu"
+    - name: Ensure python3-libdnf5 is installed (Fedora)
+      raw: dnf install -y python3-libdnf5 python3-dnf
+      when: ansible_facts['distribution'] == "Fedora"
+      register: dnf_install
+      changed_when: "'Nothing to do' not in dnf_install.stdout"
+    - name: Install Apache and PHP for Fedora servers
+      package:
+        name:
+          - httpd
+          - php
+        state: latest
+        update_cache: yes
+      when: ansible_facts['distribution'] == "Fedora"
